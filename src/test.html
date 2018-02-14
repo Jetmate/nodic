@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+
+    .row {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      background: red;
+    }
+
+    .row > * {
+      flex: 1;
+      background: red;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div class="row">
+      <div class="image"></div>
+      <div class="tool-options"></div>
+    </div>
+    <div class="row">
+      <div class="spritesheet"></div>
+      <div class="sprite-options"></div>
+    </div>
+  </div>
+</body>
+</html>
