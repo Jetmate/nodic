@@ -1,8 +1,6 @@
 {
   "presets": [
-    "env"
-  ],
-  "plugins": [
-    ["inferno", {"imports": true}]
+    "env",
+    "react"
   ]
 }

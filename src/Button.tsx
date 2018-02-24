@@ -1,4 +1,4 @@
-import { createComponent } from 'inferno-fela'
+import { createComponent } from 'react-fela'
 
 const button = props => ({
 	height: 10,

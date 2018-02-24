@@ -2,6 +2,7 @@ import React, { Component, ReactNode, cloneElement, ReactChild, ReactElement } f
 import Button from './Button'
 import { createComponent } from 'react-fela'
 import * as ReactDOM from 'react-dom';
+import { injectSheet } from 'react-jss'
 
 export enum Direction {
 	Horizontal = 'width',
@@ -11,28 +12,30 @@ export enum Direction {
 interface IProps {
 	direction: Direction;
 	children?: any;
+	classes:
 }
 
 interface IState {
 	distance?: number;
 }
 
-const Expandable = createComponent((props: any) => ({
-	[props.direction]: props.distance || '100%',
-}), () => this.props.children[0])
+@injectSheet({
+	button: {
 
+	},
+})
 export default class Slider extends Component<IProps, IState> {
 	public state: IState = {};
 	private first: any;
 	private second: any;
 
-	constructor (props, context) {
+	constructor(props, context) {
 		super(props, context)
 
 		if (this.props.children instanceof Array &&
-				this.props.children.length === 2 &&
-				this.props.children[0] &&
-				this.props.children[1]) {
+			this.props.children.length === 2 &&
+			this.props.children[0] &&
+			this.props.children[1]) {
 
 			this.second = this.props.children[1]
 
@@ -41,7 +44,8 @@ export default class Slider extends Component<IProps, IState> {
 		}
 	}
 
-	public render () {
+	public render() {
+		const { classes } = this.props
 		return (
 			<Row>
 				<this.first width={this.state.distance} ref={this.initializeDistance} />

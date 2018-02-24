@@ -1,13 +1,11 @@
-import { linkEvent } from 'inferno'
-import Component from 'inferno-component'
+import React from 'react'
 import Button from './Button'
-import { createComponent } from 'inferno-fela'
-import Slider from './Slider'
+import Slider, { Direction } from './Slider'
 
-export default class Main extends Component<any, any> {
+export default class Main extends React.Component<any, any> {
 	public render() {
 		return (
-			<Slider>
+			<Slider direction={Direction.Horizontal}>
 				<p>one</p>
 				<p>two</p>
 			</Slider>

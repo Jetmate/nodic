@@ -1,5 +1,6 @@
-import { render } from 'inferno'
-import { Provider } from 'inferno-fela'
+import React from 'react'
+import { render } from 'react-dom'
+import { Provider } from 'react-fela'
 import createRenderer from './renderer'
 import App from './App'
 
