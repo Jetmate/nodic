@@ -1,8 +1,6 @@
-import React, { Component, ReactNode, cloneElement, ReactChild, ReactElement } from 'react'
-import Button from './Button'
-import { createComponent } from 'react-fela'
-import * as ReactDOM from 'react-dom';
-import { injectSheet } from 'react-jss'
+import React, { Component, ReactNode, cloneElement, ReactChild, ReactElement, SFC } from 'react'
+import { findDOMNode } from 'react-dom';
+import injectSheet from 'react-jss'
 
 export enum Direction {
 	Horizontal = 'width',
@@ -12,50 +10,51 @@ export enum Direction {
 interface IProps {
 	direction: Direction;
 	children?: any;
-	classes:
+	classes?: any;
 }
 
 interface IState {
-	distance?: number;
+	distance: number | string;
 }
 
 @injectSheet({
-	button: {
-
+	outer: {
+		display: 'flex',
+		flexDirection: props => props.direction === Direction.Horizontal ? 'horizontal' : 'vertical',
 	},
 })
 export default class Slider extends Component<IProps, IState> {
-	public state: IState = {};
-	private first: any;
-	private second: any;
-
-	constructor(props, context) {
-		super(props, context)
-
-		if (this.props.children instanceof Array &&
-			this.props.children.length === 2 &&
-			this.props.children[0] &&
-			this.props.children[1]) {
-
-			this.second = this.props.children[1]
-
-		} else {
-			throw new Error('Slider component must have exactly two children.')
-		}
-	}
+	public state: IState = { distance: '100%' };
 
 	public render() {
-		const { classes } = this.props
+		const { classes, children: [first, second] } = this.props
 		return (
-			<Row>
-				<this.first width={this.state.distance} ref={this.initializeDistance} />
-
-				{this.second}
-			</Row>
+			<div className={classes.outer}>
+				<Panel ref={this.initializeDistance} distance={this.state.distance} direction={this.props.direction}>
+					{first}
+				</Panel>
+				<Seperator direction={this.props.direction} />
+				{second}
+			</div>
 		)
 	}
 
 	private initializeDistance = (ref: any) => {
-		this.setState({ distance: ReactDOM.findDOMNode(ref).getClientRects()[0][this.props.direction as string] })
+		this.setState({ distance: findDOMNode(ref).getBoundingClientRect()[this.props.direction as string] })
 	}
 }
+
+interface IPanelProps {
+	classes?: any;
+	ref: any;
+	direction: Direction;
+	distance: number | string;
+}
+
+const Panel: SFC<IPanelProps> = injectSheet({
+	panel: props => ({
+		[props.direction as string]: props.distance,
+	}),
+})(({ classes, children }) =>
+	<div className={classes.panel}>{children}</div>
+)
